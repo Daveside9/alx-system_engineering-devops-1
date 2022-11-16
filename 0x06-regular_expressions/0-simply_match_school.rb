@@ -1,3 +1,3 @@
 #!/usr/bin/env ruby
 Oluwajuwon = "School"
-p Oluwajuwon.match?("School")
+puts Oluwajuwon.match?/School/g
