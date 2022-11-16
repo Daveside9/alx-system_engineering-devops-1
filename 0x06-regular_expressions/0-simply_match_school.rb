@@ -1,3 +1,2 @@
 #!/usr/bin/env ruby
-puts ("School")
-puts /School/
+School =~ /School/g
