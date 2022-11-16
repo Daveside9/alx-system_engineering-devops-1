@@ -1,3 +1,3 @@
 #!/usr/bin/env ruby
-Oluwajuwon = "School"
-p Oluwajuwon =~ /School/g
+Oluwajuwon = " I love my School"
+p Oluwajuwon =~ /School/
