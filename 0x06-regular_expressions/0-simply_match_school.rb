@@ -1,3 +1,3 @@
 #!/usr/bin/env ruby
-puts ("Oluwajuwon loves Holberton School")
-puts (/School/g)
+puts ("School")
+/School/g
