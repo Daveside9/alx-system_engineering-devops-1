@@ -1,2 +1,3 @@
 #!/usr/bin/env ruby
-#/School/g
+Oluwajuwon = "School"
+p Oluwajuwon.match?("School")
