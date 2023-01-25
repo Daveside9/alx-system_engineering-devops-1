@@ -17,7 +17,7 @@ frontend  ollyjhay-frontend
 backend ollyjhay-backend
         balance roundrobin
         server 93511-web-01 35.174.209.1:80 check
-        server 93511-web-02 54.82.119.232:80 check
+        server 93511-web-02 35.153.52.94:80 check
 "
 echo "$server_config" | sudo tee -a /etc/haproxy/haproxy.cfg
 
