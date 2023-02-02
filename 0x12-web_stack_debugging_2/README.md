@@ -1,43 +1,68 @@
-This project has us exploring the shell and writing code to be performed through the command line.
+# 0x12. Web stack debugging #2
 
-**Task 0** is a script that prints the absolute path name of the current working directory.
+## TASKS
 
-**Task 1** displays the contents list of the current directoy.
+### TASK 0
+The user root is, on Linux, the “superuser”. It can do anything it wants, that’s a good and bad thing. A good practice is that one should never be logged in the root user, as if you fat finger a command and for example run rm -rf /, there is no comeback. That’s why it is preferable to run as a privileged user, meaning that the user also has the ability to perform tasks that the root user can do, just need to use a specific command that you need to discover.
 
-**Task 2** changes the working directory to the user's home directory.
+For the containers that you are given in this project as well as the checker, everything is run under the root user, which has the ability to run anything as another user.
 
-**Task 3** displays the current directory's contents in long format.
+Requirements:
+* write a Bash script that accepts one argument
+* the script should run the whoami command under the user passed as an argument
+* make sure to try your script by passing different users
 
-**Task 4** displays the current directoy's contents in long format and includes hidden files.
+Example:
+```
+root@ubuntu:~# whoami
+root
+root@ubuntu:~# ./0-iamsomeonelese nginx
+nginx
+root@ubuntu:~# whoami
+root
+root@ubuntu:~#
+```
 
-**Task 5** displays the current directoy's contents with the following attributes:
-* Long format
-* With user and group IDs displayed numerically
-* Hidden files included
+File: `0-iamsomeonelese`
 
-**Task 6** creates a directory named "holberton" in the /tmp/ directory.
+### TASK 1
+The root user is a superuser that can do anything on a Unix machine, the top administrator. Security wise, you must do everything that you can to prevent an attacker from logging in as root. With this in mind, it’s a good practice not to run your web servers as root (which is the default for most configurations) and instead run the process as the less privileged nginx user instead. This way, if a hacker does find a security issue that allows them to break-in to your server, the impact is limited by the permissions of the nginx user.
 
-**Task 7** moves the file "betty" from /tmp/ to /tmp/holberton.
+Fix this container so that Nginx is running as the nginx user.
 
-**Task 8** deletes the file "betty."
+Requirements:
+* nginx must be running as nginx user
+* nginx must be listening on all active IPs on port 8080
+* You cannot use apt-get remove
+* Write a Bash script that configures the container to fit the above requirements
 
-**Task 9** deletes the directoy "holberton" that is in the /tmp directory.
+After debugging:
+```
+root@ab6f4542747e:~# ps auxff | grep ngin[x]
+nginx      884  0.0  0.0  77360  2744 ?        Ss   19:16   0:00 nginx: master process /usr/sbin/nginx
+nginx      885  0.0  0.0  77712  2772 ?        S    19:16   0:00  \_ nginx: worker process
+nginx      886  0.0  0.0  77712  3180 ?        S    19:16   0:00  \_ nginx: worker process
+nginx      887  0.0  0.0  77712  3180 ?        S    19:16   0:00  \_ nginx: worker process
+nginx      888  0.0  0.0  77712  3208 ?        S    19:16   0:00  \_ nginx: worker process
+root@ab6f4542747e:~#
+root@ab6f4542747e:~# nc -z 0 8080 ; echo $?
+0
+root@ab6f4542747e:~#
+```
 
-**Task 10** changes the working directory to the previous one.
+File: `1-run_nginx_as_nginx`
 
-**Task 11** lists all files (even hidden ones) in the current directory and the parent directory of the working directory and the /boot directory (in this order), in long format.
 
-**Task 12** prints the type of the file named "iamafile."
+### TASK 2
+Using what you did for task #1, make your fix short and sweet.
 
-**Task 13** creates a symbolic link to /bin/ls, named "_ls_."
+Requirements:
+* Your Bash script must be 7 lines long or less
+* There must be a new line at the end of the file
+* You respect Bash script requirements
+* You cannot use ;
+* You cannot use &&
+* You cannot use wget
+* You cannot execute your previous answer file (Do not include the name of the previous script in this one)
 
-**Task 14** copies all HTML files from the current working directory to the parent of the working directory.
-
-**Task 15** moves all files beginning with an uppercase letter to the directoy /tmp/u.
-
-**Task 16** deletes all files in the current working directory that end with the character ~.
-
-**Task 17** creates the directories welcome/, welcome/to/ and welcome/to/holberton in the current directory.
-
-**Task 18** lists all the files and directories of the current directoy separated by commas.
-
+File: `100-fix_in_7_lines_or_less`
