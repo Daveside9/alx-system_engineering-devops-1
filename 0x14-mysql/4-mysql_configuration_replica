@@ -1,7 +1,7 @@
-Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 5.15.0-1021-aws x86_64)
-
- * Documentation:  https://help.ubuntu.com
-
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License, version 2.0, for more details.
+#
+# You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
@@ -31,4 +31,3 @@ relay-log       = /var/log/mysql/mysql-relay-bin.log
 bind-address    = 127.0.0.1
 # Disabling symbolic-links is recommended to prevent assorted security risks
 symbolic-links=0
-"/etc/mysql/mysql.conf.d/mysqld.cnf" 48L, 1792C
