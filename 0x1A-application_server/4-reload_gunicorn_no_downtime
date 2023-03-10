@@ -1,11 +1,23 @@
 #!/bin/bash
-if ! ps auxf | grep -q "[g]unicorn"; then
-    echo "Gunicorn is not running, nothing to reload."
-    exit 0
+
+# Get the PID of the Gunicorn master process
+GUNICORN_MASTER_PID=$(ps auxf | grep '[g]unicorn: master' | awk '{print $2}')
+
+# If the master process is not found, exit with an error message
+if [ -z "$GUNICORN_MASTER_PID" ]; then
+  echo "Gunicorn master process not found"
+  exit 1
 fi
-echo "Gracefully shutting down some Gunicorn workers..."
-kill -s TERM $(ps auxf | grep '[g]unicorn' | awk '{print $2}' | head -n 2)
-echo "Starting new Gunicorn workers..."
-gunicorn --workers 4 web_flask.0-hello_route:app &
-echo "Gracefully shutting down remaining Gunicorn workers..."
-kill -s TERM $(ps auxf | grep '[g]unicorn' | awk '{print $2}')
+
+# Send a HUP signal to the master process to start a graceful reload
+kill -HUP $GUNICORN_MASTER_PID
+
+# Wait for the workers to gracefully shutdown
+sleep 5
+
+# Start new workers with the updated application code or configuration
+/home/vagrant/AirBnB_clone_v4/bin/gunicorn --bind 0.0.0.0:8001 --workers 4 web_flask.0-hello_route:app &
+
+# Wait for the new workers to start and serve traffic
+sleep 5
+
